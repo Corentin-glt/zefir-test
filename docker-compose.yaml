@@ -1,0 +1,32 @@
+version: "3.7"
+
+services:
+  database:
+    image: "postgres"
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=zefir
+    expose:
+      - "5432"
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./pg-data:/var/lib/postgresql/data
+
+  api:
+    build:
+      context: ./packages/api
+      dockerfile: Dockerfile
+    volumes:
+      - ./packages/api/src:/usr/src/app/src
+      - /usr/src/app/node_modules
+    environment:
+      - PORT=${PORT_API}
+      - URL_DATABASE=database://${POSTGRES_USER}:${POSTGRES_PASSWORD}@database/zefir
+      - USERNAME_DATABASE=${POSTGRES_USER}
+      - PASSWORD_DATABASE=${POSTGRES_PASSWORD}
+    ports:
+      - ${PORT_API}:${PORT_API}
+    depends_on:
+      - database
