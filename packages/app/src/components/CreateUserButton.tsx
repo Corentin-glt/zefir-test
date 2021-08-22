@@ -1,5 +1,6 @@
 import React, { Fragment, useState } from "react";
 
+import { gql, useMutation } from "@apollo/client";
 import { Dialog, Transition } from "@headlessui/react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
@@ -7,6 +8,12 @@ import * as yup from "yup";
 
 import Button from "./Button";
 import SpanError from "./Span/SpanError";
+
+const CREATE_USER = gql`
+  mutation CreateUser($input: UserInput!) {
+    createUser(userInput: $input)
+  }
+`;
 
 const schema = yup.object().shape({
   email: yup.string().email().required("No email provided."),
@@ -24,6 +31,12 @@ function CreateUserButton() {
     formState: { errors },
   } = useForm<Values>({
     resolver: yupResolver(schema),
+  });
+
+  const [createUser, { loading }] = useMutation(CREATE_USER, {
+    onCompleted() {
+      setIsOpen(false);
+    },
   });
 
   return (
@@ -74,8 +87,9 @@ function CreateUserButton() {
                   <form
                     className="space-y-2"
                     onSubmit={handleSubmit((value) => {
-                      console.log(value);
-                      setIsOpen(false);
+                      createUser({
+                        variables: { input: { email: value.email } },
+                      });
                     })}
                   >
                     <div>
@@ -99,7 +113,7 @@ function CreateUserButton() {
                       )}
                     </div>
                     <div className="mt-4">
-                      <Button text="Create" type="submit" />
+                      <Button loading={loading} text="Create" type="submit" />
                     </div>
                   </form>
                 </div>
