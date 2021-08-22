@@ -29,5 +29,5 @@ Just run the command `yarn stop` and it will stop the application.
 
 | Service     | Url                            |
 | ----------- | ------------------------------ |
-| Web App     | http://localhost:3000/         |
+| Web App     | http://localhost:3000          |
 | GraphQL API | https://localhost:4400/graphql |
