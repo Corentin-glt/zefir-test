@@ -7,3 +7,5 @@
 pg-data/
 
 .env
+
+.vscode/
