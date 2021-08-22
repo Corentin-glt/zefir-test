@@ -7,6 +7,10 @@
 I recommand to use `yarn` as package manager (https://yarnpkg.com).
 You can install it with `npm install -g yarn`.
 
+### Docker
+
+Without docker you won't be able to launch the application (https://www.docker.com/).
+
 ## Usage
 
 ### Set up your environment
