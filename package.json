@@ -1,0 +1,8 @@
+{
+  "name": "zefir-test",
+  "scripts": {
+    "installation": "cd ./packages/api && yarn install && cd ../app/ && yarn install",
+    "start": "docker-compose up -d --build",
+    "stop": "docker-compose down --remove-orphans"
+  }
+}
