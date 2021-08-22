@@ -42,15 +42,13 @@ function CreateUserButton() {
       toast.error(error.message);
     },
     onCompleted() {
-      toast.success(`The user has been created after ${timer} secondes`, {
-        position: "top-right",
-      });
+      toast.success(`The user has been created after ${timer} secondes`);
       setIsOpen(false);
     },
   });
 
   return (
-    <div className="h-full">
+    <div className="">
       <Button text="Create user" onClick={() => setIsOpen(true)} />
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog
