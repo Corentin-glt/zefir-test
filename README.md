@@ -17,6 +17,12 @@ Without docker you won't be able to launch the application (https://www.docker.c
 
 Create a `.env` file from `.env.example` at the root of the repository and fill it.
 
+### Download
+
+Please to follow these steps from the root of the repo:
+1- `rm -rf packages/api`
+2- `git clone https://github.com/Corentin-glt/zefir-api.git packages/api`
+
 ### Install dependencies
 
 Just run the command `yarn installation` at the root of the repository.

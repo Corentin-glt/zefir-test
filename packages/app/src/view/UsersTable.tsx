@@ -9,22 +9,29 @@ const GET_USERS = gql`
         id
         email
         fib
+        anagram {
+          id
+        }
       }
     }
   }
 `;
 
+interface Anagram {
+  id: string;
+}
 interface User {
   id: string;
   email: string;
   fib: number;
+  anagram: Anagram;
 }
 
 function UsersTable() {
   const { data } = useQuery(GET_USERS, {
     variables: {
       input: {
-        limit: 20,
+        limit: 200,
         offset: 0,
       },
     },
@@ -43,6 +50,7 @@ function UsersTable() {
               <th className="p-3 text-left font-bold text-white">Email</th>
               <th className="p-3 text-left font-bold text-white">Fib result</th>
               <th className="p-3 text-left font-bold text-white">ID</th>
+              <th className="p-3 text-left font-bold text-white">Anagram ID</th>
             </tr>
           </thead>
           <tbody>
@@ -52,6 +60,9 @@ function UsersTable() {
                   <td className="p-3 text-white text-left">{user.email}</td>
                   <td className="p-3 text-white text-left">{user.fib}</td>
                   <td className="p-3 text-white text-left">{user.id}</td>
+                  <td className="p-3 text-white text-left">
+                    {user.anagram.id}
+                  </td>
                 </tr>
               );
             })}
