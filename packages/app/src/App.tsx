@@ -1,14 +1,13 @@
 import React, { useState } from "react";
+import { ToastContainer } from "react-toastify";
 import CreateUserButton from "./components/CreateUserButton";
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
     <div className="text-center h-screen">
         <CreateUserButton />
-      {/* <header className="App-header">
-      </header> */}
+        <ToastContainer />
     </div>
   );
 }

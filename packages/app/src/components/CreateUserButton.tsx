@@ -8,10 +8,13 @@ import * as yup from "yup";
 
 import Button from "./Button";
 import SpanError from "./Span/SpanError";
+import { toast } from "react-toastify";
 
 const CREATE_USER = gql`
-  mutation CreateUser($input: UserInput!) {
-    createUser(userInput: $input)
+  mutation CreateUser($input: UserCreateDTO!) {
+    createUser(userInput: $input) {
+      id
+    }
   }
 `;
 
@@ -25,6 +28,7 @@ interface Values {
 
 function CreateUserButton() {
   const [isOpen, setIsOpen] = useState(false);
+  const [timer, setTimer] = useState(0);
   const {
     register,
     handleSubmit,
@@ -34,7 +38,13 @@ function CreateUserButton() {
   });
 
   const [createUser, { loading }] = useMutation(CREATE_USER, {
+    onError(error) {
+      toast.error(error.message);
+    },
     onCompleted() {
+      toast.success(`The user has been created after ${timer} secondes`, {
+        position: "top-right",
+      });
       setIsOpen(false);
     },
   });
@@ -86,10 +96,17 @@ function CreateUserButton() {
                 <div className="mt-2">
                   <form
                     className="space-y-2"
-                    onSubmit={handleSubmit((value) => {
-                      createUser({
+                    onSubmit={handleSubmit(async (value) => {
+                      setTimer(0);
+                      const interval = setInterval(() => {
+                        setTimer((seconde) => seconde + 0.05);
+                      }, 50);
+
+                      await createUser({
                         variables: { input: { email: value.email } },
                       });
+
+                      clearInterval(interval);
                     })}
                   >
                     <div>
