@@ -38,6 +38,8 @@ services:
     volumes:
       - ./packages/app/src:/usr/src/app/src
       - /usr/src/app/node_modules
+    environment:
+      - VITE_API_URL=${API_URL}
     ports:
       - 3000:3000
     depends_on:
