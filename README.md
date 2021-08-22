@@ -17,6 +17,7 @@ Without docker you won't be able to launch the application (https://www.docker.c
 
 Create a `.env` file from `.env.example` at the root of the repository and fill it.
 
+
 ### Download
 
 Please to follow these steps from the root of the repo:
