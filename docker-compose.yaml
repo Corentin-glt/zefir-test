@@ -30,3 +30,15 @@ services:
       - ${PORT_API}:${PORT_API}
     depends_on:
       - database
+
+  app:
+    build:
+      context: ./packages/app
+      dockerfile: Dockerfile
+    volumes:
+      - ./packages/app/src:/usr/src/app/src
+      - /usr/src/app/node_modules
+    ports:
+      - 3000:3000
+    depends_on:
+      - api
