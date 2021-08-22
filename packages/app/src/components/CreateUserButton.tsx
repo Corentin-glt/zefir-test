@@ -45,6 +45,7 @@ function CreateUserButton() {
       toast.success(`The user has been created after ${timer} secondes`);
       setIsOpen(false);
     },
+    refetchQueries: ["GetUsers"],
   });
 
   return (
